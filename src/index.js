@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import App from './components/App';
+
+//Стили
+import './style.css';
+import 'modern-normalize/modern-normalize.css';
 
 import 'modern-normalize/modern-normalize.css';
 
