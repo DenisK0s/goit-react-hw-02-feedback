@@ -2,19 +2,20 @@
 import PropTypes from 'prop-types';
 
 //стили
-// import styles from './Section.module.css';
+import styles from './Section.module.css';
 
 const Section = ({ title, children }) => {
   return (
-    <section>
-      <h2>{title}</h2>
+    <section className={styles.Section}>
+      <h2 className="SectionTitle">{title}</h2>
       {children}
     </section>
   );
 };
 
 Section.propTypes = {
-  children: PropTypes.node,
+  title: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default Section;

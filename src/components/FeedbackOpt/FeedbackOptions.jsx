@@ -3,42 +3,28 @@ import PropTypes from 'prop-types';
 
 //компоненты
 import Section from '../Section';
+import FeedbackOptionButton from './FeedbackOptionButton';
 
-const FeedbackOptions = ({ onLeaveFeedback }) => {
+const FeedbackOptions = ({ options, onLeaveFeedback }) => {
   return (
     <Section title={'Please Leave feedback'}>
       <div className="FeedbackTabs">
-        <button
-          id="good"
-          className="FeedbackButton"
-          type="button"
-          onClick={onLeaveFeedback}
-        >
-          Good
-        </button>
-        <button
-          id="neutral"
-          className="FeedbackButton"
-          type="button"
-          onClick={onLeaveFeedback}
-        >
-          Neutral
-        </button>
-        <button
-          id="bad"
-          className="FeedbackButton"
-          type="button"
-          onClick={onLeaveFeedback}
-        >
-          Bad
-        </button>
+        {options.map(option => {
+          return (
+            <FeedbackOptionButton
+              key={option}
+              optionName={option}
+              optionHandler={onLeaveFeedback}
+            />
+          );
+        })}
       </div>
     </Section>
   );
 };
 
 FeedbackOptions.propTypes = {
-  onLeaveFeedback: PropTypes.func,
+  options: PropTypes.array,
 };
 
 export default FeedbackOptions;

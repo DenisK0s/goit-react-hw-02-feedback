@@ -1,0 +1,13 @@
+.FeedbackButton {
+  text-transform: capitalize;
+
+  transition: transform 200ms linear;
+}
+
+.FeedbackButton:hover {
+  transform: scale(1.2);
+}
+
+.FeedbackButton + .FeedbackButton {
+  margin-left: 20px;
+}

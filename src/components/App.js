@@ -4,14 +4,17 @@ import React, { Component } from 'react';
 // компоненты
 import Statistics from '../components/Statistics';
 import FeedbackOptions from '../components/FeedbackOpt';
+import Button from '../components/Utils/Button';
+
+const INITIAL_STATE = {
+  good: 0,
+  neutral: 0,
+  bad: 0,
+};
 
 class App extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
-    total: 0,
-    feedbackPercentage: 0,
+    ...INITIAL_STATE,
   };
 
   handleClick = event => {
@@ -30,16 +33,22 @@ class App extends Component {
     });
   };
 
+  resetStatistics = () => {
+    this.setState({ ...INITIAL_STATE });
+  };
+
   countTotalFeedback = items => {
     const arrOfValues = Object.values(items);
     const total = arrOfValues.reduce((acc, value) => acc + value, 0);
     return total;
   };
 
-  countPositiveFeedbackPercentage = (value, amount) => (value * 100) / amount;
+  countPositiveFeedbackPercentage = (value, amount) =>
+    Math.floor((value * 100) / amount);
 
   render() {
     const { good, neutral, bad } = this.state;
+    const FeedbackOptionsArr = Object.keys(this.state);
     const totalFeedback = this.countTotalFeedback(this.state);
     const PositiveFeedbackPercentage = this.countPositiveFeedbackPercentage(
       good,
@@ -48,7 +57,11 @@ class App extends Component {
 
     return (
       <>
-        <FeedbackOptions onLeaveFeedback={this.handleClick} />,
+        <FeedbackOptions
+          options={FeedbackOptionsArr}
+          onLeaveFeedback={this.handleClick}
+        />
+        ,
         <Statistics
           good={good}
           neutral={neutral}
@@ -56,6 +69,7 @@ class App extends Component {
           total={totalFeedback}
           positivePercentage={PositiveFeedbackPercentage}
         />
+        ,<Button onReset={this.resetStatistics}>Clear feedback</Button>
       </>
     );
   }
