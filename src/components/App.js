@@ -18,19 +18,11 @@ class App extends Component {
   };
 
   handleClick = event => {
-    const currentActiveBtnId = event.target.id;
+    const currentActiveBtn = event.target.id;
 
-    this.setState(prevState => {
-      if (currentActiveBtnId === 'good') {
-        return { good: prevState.good + 1 };
-      }
-      if (currentActiveBtnId === 'neutral') {
-        return { neutral: prevState.neutral + 1 };
-      }
-      if (currentActiveBtnId === 'bad') {
-        return { bad: prevState.bad + 1 };
-      }
-    });
+    this.setState(prevState => ({
+      [currentActiveBtn]: prevState[currentActiveBtn] + 1,
+    }));
   };
 
   resetStatistics = () => {
@@ -61,7 +53,6 @@ class App extends Component {
           options={FeedbackOptionsArr}
           onLeaveFeedback={this.handleClick}
         />
-        ,
         <Statistics
           good={good}
           neutral={neutral}
@@ -69,7 +60,7 @@ class App extends Component {
           total={totalFeedback}
           positivePercentage={PositiveFeedbackPercentage}
         />
-        ,<Button onReset={this.resetStatistics}>Clear feedback</Button>
+        <Button onReset={this.resetStatistics}>Clear feedback</Button>
       </>
     );
   }
